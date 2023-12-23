@@ -44,10 +44,16 @@ class Page:
     def switch_to_window(self, window_id):
         self.driver.switch_to.window(window_id)
 
-    def wait_for_element_visible(self, *locator):
+    def wait_for_element_to_be_visible(self, *locator):
         element = self.wait.until(
             EC.visibility_of_element_located(*locator),
             message=f'Element by {locator} not visible'
         )
         return element
 
+    def wait_for_element_to_be_clickable(self, *locator):
+        element = self.wait.until(
+            EC.element_to_be_clickable(*locator),
+            message=f'Element by {locator} not clickable'
+        )
+        return element
