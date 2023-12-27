@@ -7,14 +7,14 @@ from selenium.webdriver.support.wait import WebDriverWait
 from app.application import Application
 
 
-def browser_init(context):
+def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
     # driver_path = ChromeDriverManager().install()
     # service = Service(driver_path)
     # context.driver = webdriver.Chrome(service=service)
-    # context.driver.maximize_window()
+
 
     # Headless Mode
     # options = webdriver.ChromeOptions()
@@ -27,17 +27,33 @@ def browser_init(context):
     # context.driver.set_window_size(1920, 1200)
 
     # Firefox
-    # service = Service(executable_path='./geckodriver')
-    # context.driver = webdriver.Firefox(service=service)
-    options = FirefoxOptions()
-    context.driver = webdriver.Firefox(options=options)
+    # options = FirefoxOptions()
+    # context.driver = webdriver.Firefox(options=options)
+
+    # BrowserStack
+    bs_user = 'hin_q42LiO'
+    bs_key = 'PYaS8sxe8fsSq2gFis1u'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+
+    options = Options()
+    bs_options = {
+        'os': "Windows",
+        'osVersion': "10",
+        'browserName': "Chrome",
+        'sessionName': scenario_name
+    }
+
+    options.set_capability('bstack:options', bs_options)
+    context.driver = webdriver.Remote(command_executor=url, options=options)
+
+    context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.app = Application(context.driver)
 
 
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
-    browser_init(context)
+    browser_init(context, scenario.name)
 
 
 def before_step(context, step):
