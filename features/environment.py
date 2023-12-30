@@ -11,9 +11,9 @@ def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
-    # driver_path = ChromeDriverManager().install()
-    # service = Service(driver_path)
-    # context.driver = webdriver.Chrome(service=service)
+    driver_path = ChromeDriverManager().install()
+    service = Service(driver_path)
+    context.driver = webdriver.Chrome(service=service)
 
 
     # Headless Mode
@@ -31,20 +31,19 @@ def browser_init(context, scenario_name):
     # context.driver = webdriver.Firefox(options=options)
 
     # BrowserStack
-    bs_user = 'hin_q42LiO'
-    bs_key = 'PYaS8sxe8fsSq2gFis1u'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-
-    options = Options()
-    bs_options = {
-        'os': "Windows",
-        'osVersion': "10",
-        'browserName': "Chrome",
-        'sessionName': scenario_name
-    }
-
-    options.set_capability('bstack:options', bs_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
+    # bs_user = 'hin_q42LiO'
+    # bs_key = 'PYaS8sxe8fsSq2gFis1u'
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    #
+    # options = Options()
+    # bs_options = {
+    #     'os': "Windows",
+    #     'osVersion': "10",
+    #     'browserName': "Chrome",
+    #     'sessionName': scenario_name
+    # }
+    # options.set_capability('bstack:options', bs_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
