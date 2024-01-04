@@ -15,7 +15,6 @@ def browser_init(context, scenario_name):
     service = Service(driver_path)
     context.driver = webdriver.Chrome(service=service)
 
-
     # Headless Mode
     # options = webdriver.ChromeOptions()
     # options.add_argument('--headless')
@@ -45,9 +44,17 @@ def browser_init(context, scenario_name):
     # options.set_capability('bstack:options', bs_options)
     # context.driver = webdriver.Remote(command_executor=url, options=options)
 
-    context.driver.maximize_window()
+
+    ## Mobile WEB
+    mobile_emulation = {"deviceName": "iPhone 14 Pro Max"}
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    context.driver = webdriver.Chrome(options=chrome_options)
+
+    # context.driver.maximize_window()
     context.driver.implicitly_wait(4)
     context.app = Application(context.driver)
+
 
 
 def before_scenario(context, scenario):

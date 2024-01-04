@@ -6,8 +6,8 @@ from time import sleep
 
 class OffPlanPage(Page):
 
-    OPEN_IN_BROWSER_BTN = (By.CSS_SELECTOR, "[class='button-block-home'] [href*='soft.reelly.io']")
     FILTER_BTN = (By.CSS_SELECTOR, "form [class*='filter-button']")
+    FILTER_BTN_MOBILE = (By.XPATH, "//*[@class='filter-button'] /img[@class='top-bar-icon']")
     FUTURE_LAUNCH_FILTER = (By.XPATH, "//*[@class='filters-tags'] //*[text()='Future Launch']")
     TOTAL_LISTINGS = (By.CSS_SELECTOR, "[wized='cardOfProperty']")
     LISTINGS_WITH_FUTURE_LAUNCH_TAG = (By.XPATH, "//a[@wized='cardOfProperty'] //*[text()='Future Launch']")
@@ -19,7 +19,10 @@ class OffPlanPage(Page):
 
     def filter_by_future_launch(self):
         sleep(5)
-        self.click(*self.FILTER_BTN)
+        #WEB
+        # self.click(*self.FILTER_BTN)
+        #Mobile
+        self.click(*self.FILTER_BTN_MOBILE)
         self.wait_for_element_to_be_clickable(self.FUTURE_LAUNCH_FILTER)
         self.click(*self.FUTURE_LAUNCH_FILTER)
         self.wait.until(EC.visibility_of_element_located(self.PROJECT_NAME))

@@ -6,9 +6,15 @@ from time import sleep
 
 class MainPage(Page):
 
+
     OFF_PLAN = (By.CSS_SELECTOR, "[class*='menu'] address")
+    OFF_PLAN_MOBILE = (By.XPATH, "//*[@wized='mobileMenuForVerifiedUsers'] //*[text()='Off-plan']")
 
     def open_off_plan_page(self):
-        self.click(*self.OFF_PLAN)
+        sleep(5)
+        #WEB
+        # self.click(*self.OFF_PLAN)
+        #Mobile
+        self.click(*self.OFF_PLAN_MOBILE)
 
 

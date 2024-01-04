@@ -10,7 +10,9 @@ class SignInPage(Page):
     LOGIN_BTN = (By.CSS_SELECTOR, "[class*='login-button']")
 
     def sign_in(self):
-        sleep(1)
+        sleep(5)
+        self.click(*self.EMAIL_FIELD)
         self.input('usahleb@gmail.com', *self.EMAIL_FIELD)
+        self.click(*self.PWD_FIELD)
         self.input('Intern1587!@', *self.PWD_FIELD)
         self.click(*self.LOGIN_BTN)
